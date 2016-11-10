@@ -1,12 +1,148 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+    <h:outputStylesheet name="css/bootstrap.css"/>
+    <h:outputScript library="js" name="bootstrap.js"/>
+</h:head>
 
 <h:body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Sosyal Makale</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <h:form class="navbar-form navbar-right" prependId="false">
+                    <div class="form-group">
+                        <h:inputText styleClass="form-control" a:placeholder="Kullanıcı Adı:" id="j_username"
+                                     value="#{userBean.userName}"/> />
+                    </div>
+
+                    <div class="form-group">
+                        <h:inputSecret class="form-control" a:placeholder="Şifre:" id="j_password"
+                                      />
+                    </div>
+                    <h:commandButton action="#{Authorization.login()}" actionListener="#{userBean.userFind}" value="Giriş"
+                                     styleClass="btn btn-success"></h:commandButton>
+                </h:form>
+            </div><!--/.navbar-collapse -->
+        </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Merhaba!!, Kafayı Siz Kullanmayın bırakın Biz kullanalım!</h1>
+            <p>Akıllı asistanınız ile artık her şey çok kolay. 7/24 Asistanız hizmet için beklemektedir.Nasıl mı oluyor ???? Bilgi Kırıntısı ile Çalışan Sisteme Hoş geldiniz...</p>
+            <p:commandButton value="Üye Olmak  İçin Tıklayın" styleClass="btn btn-primary btn-lg"
+                             onclick="PF('dlg3').show();"/>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Vizyonumuz</h2>
+                <p>Tüm kurumsal Projelerinizin vazgeçilmezi Akıllı Asistanınız ile veriminiz %35 artması hedeflenmektedir.Tüm kütüphane ve pluginler içerisinde bizim asistanımız sizin yol göstericiniz olacaktır</p>
+                <p><h:commandButton value="Detaylar" styleClass="btn btn-default"/></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Misyonumuz</h2>
+                <p>Yeni bir teknoloji veya yeni bir programlama dili öğrenilirken önemli bilgi ve kod parçacıklarının düzenli olarak sisteme girilmesiyle, daha sistematik kayıt tutulmasına olanak sağlamaktadır. Her yeni bilgi, kod parçacığı, fonksiyon vb. </p>
+                <p><h:commandButton value="Detaylar" styleClass="btn btn-default"/></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Neden Biz ?</h2>
+                <p>Yazılımcılar sadece yazılım geliştirir. İhtiyaca göre geliştirilen yazılımı müşteriye teslim ederek, müşterin işini kolaylaştırırlar. Bu yazılım ile yazılımcıların dünyasına hitap etmek temel prensip haline gelmiştir</p>
+                <p><h:commandButton value="Detaylar" styleClass="btn btn-default"/></p>
+            </div>
+        </div>
+
+        <hr/>
+
+        <footer>
+            <p> 2015 MZG , Inc.</p>
+        </footer>
+    </div> <!-- /container -->
+
+    <p:dialog header="Üye Ol" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="500" width="400">
+
+        <h:form>
+            <div class="well">
+
+                <h:messages styleClass="alert alert-danger" style=" font-weight: bold; padding-left: 30px;"/><br/>
+
+
+                <div class="form-group">
+                    <label>Adınız :</label>
+                    <h:inputText id="name"
+                                 styleClass="form-control"
+                                 requiredMessage="Lütfen Adınızı Giriniz"
+                                 required="true"
+                                 a:placeholder="Adınızı Giriniz... "
+                                 value="#{memberRegistrationBean.member.memberName}"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Soyadnız :</label>
+                    <h:inputText styleClass="form-control"
+                                 requiredMessage="Lütfen Soydınızı Giriniz"
+                                 required="true"
+                                 a:placeholder="Soyadınızı Giriniz... "
+                                 value="#{memberRegistrationBean.member.memberSurname}"/>
+                </div>
+
+
+                <div class="form-group">
+                    <label>E-Posta :</label>
+                    <h:inputText styleClass="form-control"
+                                 requiredMessage="E-Posta Adresinizi Giriniz"
+                                 required="true"
+                                 a:placeholder="E-Posta Adresinizi Giriniz... "
+                                 value="#{memberRegistrationBean.member.emailAddress}"/>
+                </div>
+                <div class="form-group">
+                    <label>Şifre :</label>
+                    <h:inputSecret styleClass="form-control"
+                                   requiredMessage="Lütfen Şifreinizi Giriniz"
+                                   required="true"
+                                   a:placeholder="Şifrenizi Giriniz... "
+                                   value="#{memberRegistrationBean.member.password}"/>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label>Şifre Tekrar :</label>
+                    <h:inputSecret styleClass="form-control"
+                                   requiredMessage="Lütfen Şifreinizi Giriniz"
+                                   required="true"
+                                   a:placeholder="Şifrenizi Giriniz... "/>
+
+
+                </div>
+                <h:commandButton value="Kayıt Ol" action="#{memberRegistrationBean.save(memberRegistrationBean.member)}"
+                                 styleClass="btn btn-primary"/>
+            </div>
+
+
+        </h:form>
+    </p:dialog>
+
 
 </h:body>
 </html>
