@@ -17,37 +17,45 @@
         <ui:param name="pageTitle" value="Konular"/>
         <ui:define name="icerik">
 
-            <h:outputLabel value="#{userBean.member.memberName}"/>
             <h3 class="h3"><span class="glyphicon-duplicate" aria-hidden="true"> Kişisel Makaleler</span></h3>
 
+            <h:form>
+                <c:forEach items="${topicCreateBean.select()}" var="item">
 
-            <c:forEach items="${topicCreateBean.select()}" var="item">
+                    <div class="panel panel-primary" style="width: 260px; float: left; margin-right: 15px;">
+                        <div class="panel-body" style="padding: 5px;">
+                            <table border="0" width="240">
+                                <tr>
+                                    <td>
+                                        <h:outputText value="#{item.topicId}"/>
+                                        <strong>
+                                            <h:commandLink value="${item.topicName}"
+                                                           action="#{topicBean.outcome()}">
+                                                <f:setPropertyActionListener value="#{item.topicId}"
+                                                                             target="#{topicBean.topicId}"/>
+                                            </h:commandLink>
+                                        </strong>
+                                    </td>
+                                    <td align="right">
+                                        <p:inputSwitch>
 
-                <div class="panel panel-primary" style="width: 260px; float: left; margin-right: 15px;">
-                    <div class="panel-body" style="padding: 5px;">
-                        <table border="0" width="240">
-                            <tr>
-                                <td><a href="#"><strong>${item.topicName}</strong></a></td>
-                                <td align="right">
-                                    <p:inputSwitch>
-
-                                    </p:inputSwitch>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <small>${item.topicDescription}</small>
-                                </td>
-                            </tr>
-                        </table>
+                                        </p:inputSwitch>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <small>${item.topicDescription}</small>
+                                    </td>
+                                </tr>
+                            </table>
 
 
+                        </div>
                     </div>
-                </div>
 
 
-            </c:forEach>
-
+                </c:forEach>
+            </h:form>
 
             <p:commandButton value="Yeni Konu" styleClass="btn btn-primary btn-lg" type="button"
                              onclick="PF('dlg1').show();">
@@ -55,14 +63,11 @@
 
 
             <h:form>
-                <p:growl id="display" showDetail="false" sticky="true" />
+                <p:growl id="display" showDetail="false" sticky="true"/>
 
                 <p:dialog header="Konu Oluştur" widgetVar="dlg1"
-                      width="300"
-                      minHeight="200">
-
-
-
+                          width="300"
+                          minHeight="200">
 
                     <div class="form-group">
                         <label>Konu Adı :</label>
@@ -90,11 +95,13 @@
                         />
                     </div>
 
-                    <p:commandButton value="Oluştur" action="#{topicCreateBean.saveTopic(topicCreateBean.topic)}" update="display">
-                        <f:setPropertyActionListener value="#{userBean.member.memberId}" target="#{topicCreateBean.memberId}" />
+                    <p:commandButton value="Oluştur" action="#{topicCreateBean.saveTopic()}"
+                                     update="display">
+
+
                     </p:commandButton>
 
-            </p:dialog>
+                </p:dialog>
             </h:form>
 
         </ui:define>

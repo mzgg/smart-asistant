@@ -28,14 +28,15 @@
                 <h:form class="navbar-form navbar-right" prependId="false">
                     <div class="form-group">
                         <h:inputText styleClass="form-control" a:placeholder="Kullanıcı Adı:" id="j_username"
-                                     value="#{userBean.userName}"/> />
+                                     value="#{loginBean.userName}"/> />
                     </div>
 
                     <div class="form-group">
-                        <h:inputSecret class="form-control" a:placeholder="Şifre:" id="j_password"
-                                      />
+                        <h:inputSecret class="form-control" value="#{loginBean.password}" a:placeholder="Şifre:"
+                                       id="j_password"
+                        />
                     </div>
-                    <h:commandButton action="#{Authorization.login()}" actionListener="#{userBean.userFind}" value="Giriş"
+                    <h:commandButton action="#{loginBean.userValidate()}" value="Giriş"
                                      styleClass="btn btn-success"></h:commandButton>
                 </h:form>
             </div><!--/.navbar-collapse -->
@@ -45,7 +46,7 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <div class="container">
-            <h1>Merhaba!!, Kafayı Siz Kullanmayın bırakın Biz kullanalım!</h1>
+            <h1>Merhaba!!, Sosyal Makale Platformu!</h1>
             <p>Akıllı asistanınız ile artık her şey çok kolay. 7/24 Asistanız hizmet için beklemektedir.Nasıl mı oluyor ???? Bilgi Kırıntısı ile Çalışan Sisteme Hoş geldiniz...</p>
             <p:commandButton value="Üye Olmak  İçin Tıklayın" styleClass="btn btn-primary btn-lg"
                              onclick="PF('dlg3').show();"/>

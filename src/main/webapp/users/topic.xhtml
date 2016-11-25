@@ -2,41 +2,65 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:body>
+
     <ui:composition template="../resources/template.xhtml">
         <ui:param name="pageTitle" value="Makele Düzenle"/>
         <ui:define name="icerik">
+
+            <p:dialog header="İçerik Ekle" widgetVar="dlg2" modal="true" height="400" width="800">
+                <h:form id="form">
+                    <p:growl id="display" showDetail="false" sticky="true"/>
+                    <h:panelGrid columns="2" id="panel">
+                        <h:outputLabel value="Başlık "/>
+                        <p:inputText value="#{topicBean.content.title}" required="true"
+                                     requiredMessage="Başlık Girmelisiniz...">
+                            <p:ajax event="keyup"/>
+                        </p:inputText>
+
+                        <h:outputLabel value="İçerik: "/>
+                        <p:editor id="editor" widgetVar="editorWidget" width="600"
+                                  value="#{topicBean.content.content}"/>
+
+                        <h:outputLabel value="Anahtar Kelimeler: "/>
+                        <h:inputText/>
+
+                        <p:commandButton value="Kaydet" action="#{topicBean.contentSave()}" update="display"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+
+            <h:outputText value="#{topicBean.topicId}"/>
             <div class="col-md-3" style="padding: 0px;">
                 <div class="list-group  ">
-                    <a href="#" class="list-group-item">Spring Nedir ?</a>
-                    <a href="#" class="list-group-item">Ioc Nedir ?</a>
-                    <a href="#" class="list-group-item">DI nedir ?</a>
-                    <a href="#" class="list-group-item">Spring Data </a>
-                    <a href="#" class="list-group-item">Spring ile Veritabanı Tasarımı</a>
-                    <a href="#" class="list-group-item">Spring ve Properties Kullannımı</a>
-                    <a href="#" class="list-group-item">Spring Data </a>
-                    <a href="#" class="list-group-item">Spring Data </a>
-                    <a href="#" class="list-group-item">Spring Data </a>
-                    <a href="#" class="btn btn-primary btn-sm">Başlık Ekle</a>
+                    <h:form>
+                        <c:forEach items="#{topicBean.contents()}" var="content">
+                            <h:commandLink value="#{content.title}" styleClass="list-group-item">
+                                <f:setPropertyActionListener value="#{content.title}"
+                                                             target="#{topicContentBean.title}"/>
+
+                                <f:setPropertyActionListener value="#{content.content}"
+                                                             target="#{topicContentBean.content}"/>
+                            </h:commandLink>
+
+                        </c:forEach>
+                    </h:form>
+                    <p:commandButton styleClass="btn btn-primary btn-sm" value="Başlık Ekle "
+                                     onclick="PF('dlg2').show();"/>
 
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h4 class="h4">Spring Nedir ?</h4>
+                        <h4 class="h4"><h:outputText value="#{topicContentBean.title}"/></h4>
                         <hr/>
                         <p class="text-justify">
-                            Framework Türkçede “çatı” olarak çevriliyor. Çatı ,
-                            içeriğinde farklı bileşenler olarak kütüphane ve araçlar barındıran ve böylece hayatımızı kolaylaştıran
-                            yazılım paketlerine çatı ya da framework diyoruz. Java’nın geniş çaplılığından ve açık kaynak olmasından
-                            dolayı pek çok paket, kütüphane ve araç (tool) türedi, her geçen gün daha da artmaya devam ediyor.
-                            İhtiyaca cevap vermesi açısından işleri en çok kolaylaştıran ve hızlandıranlar daha öne çıkıyor.
-                            Bunlardan biri de Spring çatısı. Peki spring çatısı bize sağladığı faydaları ana hatları ile aşağıdaki
-                            gibi sıralaya biliriz.
+                            <h:outputText value="#{topicContentBean.content}"/>
                         </p>
                     </div>
                 </div>
