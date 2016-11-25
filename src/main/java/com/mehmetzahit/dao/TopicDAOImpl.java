@@ -27,9 +27,9 @@ public class TopicDAOImpl implements TopicDAO {
 
     @Override
     @Transactional
-    public List<Topic> listTopic(long topicId) {
+    public List<Topic> listTopic(long memberId) {
         Query query = entityManager.createQuery("FROM TOPIC t WHERE t.memberId=:topic",Topic.class);
-        query.setParameter("topic",topicId);
+        query.setParameter("topic",memberId);
         List<Topic> topics = query.getResultList();
 
         return topics;

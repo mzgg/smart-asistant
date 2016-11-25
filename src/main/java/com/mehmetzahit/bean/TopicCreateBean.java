@@ -33,17 +33,15 @@ public class TopicCreateBean implements Serializable {
 
     @Setter
     @Getter
-    private long memberId; //ActionPropertyListener
+    @ManagedProperty("#{loginBean.userId}")
+    private long memberId;
 
-    @ManagedProperty("#{test}")
-    private  UserBean userBean;
 
     ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
     TopicDAO topicDAO = context.getBean(TopicDAOImpl.class);
 
-    public void saveTopic(Topic topic) {
+    public void saveTopic() {
         topic.setMemberId(memberId);
-       // System.out.println(memberId);
         topicDAO.saveTopic(topic);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Konu Oluşturuldu."));
@@ -52,7 +50,6 @@ public class TopicCreateBean implements Serializable {
     }
 
     public List<Topic> select() {
-        System.out.println(userBean.getMember().getMemberId());
         return topicDAO.listTopic(memberId);
     }
 

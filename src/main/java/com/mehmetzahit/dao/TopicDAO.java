@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface TopicDAO {
     void saveTopic(Topic topic);
-    List<Topic> listTopic(long topicId);
+    List<Topic> listTopic(long memberId);
+    
 }
