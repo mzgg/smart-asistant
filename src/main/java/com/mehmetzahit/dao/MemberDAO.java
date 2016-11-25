@@ -11,4 +11,5 @@ import java.util.List;
 public interface MemberDAO {
     void insertMember(Member member);
     Member findUser(String userName);
+    Member findUser(String email, String password);
 }

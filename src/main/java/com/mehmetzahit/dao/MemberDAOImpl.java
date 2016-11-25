@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -33,6 +34,22 @@ public class MemberDAOImpl implements MemberDAO {
         return member;
     }
 
+    @Override
+    @Transactional
+    public Member findUser(String email, String password) {
+        try {
+            TypedQuery<Member> query = entityManager.createQuery("SELECT M FROM MEMBER M WHERE M.emailAddress=:emailQuery  AND M.password=:passwordQuery", Member.class);
+            query.setParameter("emailQuery", email);
+            query.setParameter("passwordQuery", password);
+
+            return query.getSingleResult();
+
+        } catch (Exception e) {
+            return null;
+
+        }
+
+    }
 
     public EntityManager getEntityManager() {
         return entityManager;

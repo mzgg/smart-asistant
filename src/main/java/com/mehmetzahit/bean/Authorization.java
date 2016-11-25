@@ -1,11 +1,10 @@
 package com.mehmetzahit.bean;
 
 
-import com.mehmetzahit.model.Member;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
@@ -16,37 +15,36 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import java.io.IOException;
-import java.io.Serializable;
+
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 /**
  * Created by GUNEY on 4.11.2016.
  */
-@ManagedBean(name = "Authorization")
+@ManagedBean
 @SessionScoped
 public class Authorization implements Serializable {
-    @Getter
+
     private String email;
 
-    public String getUserName() {
-        return userName;
+    public String getEmail() {
+        return email;
     }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    private String userName;
 
     public void setEmail(String email) {
-        this.email = authentication.getName();
+        this.email = email;
     }
 
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
 
     public void login() {
 
         System.out.println("Login Metoduna Girildi");
+
         try {
 
             ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
@@ -55,6 +53,11 @@ public class Authorization implements Serializable {
             dispatcher.forward((ServletRequest) context.getRequest(), (ServletResponse) context.getResponse());
             FacesContext.getCurrentInstance().responseComplete();
 
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            setEmail(authentication.getName());
+            System.out.println(authentication.getName()+" bak bakalım");
+
         } catch (ServletException | IOException ex) {
 
 
@@ -62,18 +65,7 @@ public class Authorization implements Serializable {
         /*finally {
             return null;
         }*/
-        System.out.println("adına bak :" + authentication.getPrincipal());
         System.out.println("Login Metodundan Çıkıldı");
     }
 
-    public void authorizedUserControl() {
-
-
-        if (!authentication.getPrincipal().toString().equals("anonymousUser")) {
-
-            NavigationHandler nh = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
-            nh.handleNavigation(FacesContext.getCurrentInstance(), null, "/users/index.xhtml?faces-redirect=true");
-
-        }
-    }
 }
