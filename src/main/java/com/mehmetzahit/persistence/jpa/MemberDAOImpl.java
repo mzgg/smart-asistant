@@ -1,6 +1,7 @@
-package com.mehmetzahit.dao;
+package com.mehmetzahit.persistence.jpa;
 
 import com.mehmetzahit.model.Member;
+import com.mehmetzahit.persistence.dao.MemberDAO;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.List;
 
 /**
  * Created by GUNEY on 1.11.2016.

@@ -13,23 +13,30 @@
         <ui:define name="icerik">
 
             <p:dialog header="İçerik Ekle" widgetVar="dlg2" modal="true" height="400" width="800">
-                <h:form id="form">
+                <h:form>
+                    <h:message for="topic" />
                     <p:growl id="display" showDetail="false" sticky="true"/>
                     <h:panelGrid columns="2" id="panel">
+
                         <h:outputLabel value="Başlık "/>
-                        <p:inputText value="#{topicBean.content.title}" required="true"
+                        <p:inputText value="#{topicBean.content.title}" required="true" id="topic"
                                      requiredMessage="Başlık Girmelisiniz...">
-                            <p:ajax event="keyup"/>
+
                         </p:inputText>
 
                         <h:outputLabel value="İçerik: "/>
                         <p:editor id="editor" widgetVar="editorWidget" width="600"
                                   value="#{topicBean.content.content}"/>
 
-                        <h:outputLabel value="Anahtar Kelimeler: "/>
-                        <h:inputText/>
+                        <h:outputLabel value="Önem Derecesi" />
+                        <p:rating value="#{topicBean.rating}" cancel="false"> </p:rating>
 
-                        <p:commandButton value="Kaydet" action="#{topicBean.contentSave()}" update="display"/>
+                        <h:outputLabel value="Anahtar Kelimeler: "/>
+                        <h:inputText  value="#{topicBean.keyword}"/>
+
+                        <p:commandButton value="Kaydet" action="#{topicBean.contentSave()}" update="display">
+
+                        </p:commandButton>
                     </h:panelGrid>
                 </h:form>
             </p:dialog>
@@ -37,8 +44,8 @@
             <h:outputText value="#{topicBean.topicId}"/>
             <div class="col-md-3" style="padding: 0px;">
                 <div class="list-group  ">
-                    <h:form>
-                        <c:forEach items="#{topicBean.contents()}" var="content">
+                    <h:form id="refresh">
+                        <ui:repeat value="#{topicBean.contents()}" var="content" id="test">
                             <h:commandLink value="#{content.title}" styleClass="list-group-item">
                                 <f:setPropertyActionListener value="#{content.title}"
                                                              target="#{topicContentBean.title}"/>
@@ -47,10 +54,14 @@
                                                              target="#{topicContentBean.content}"/>
                             </h:commandLink>
 
-                        </c:forEach>
+                        </ui:repeat>
                     </h:form>
+
                     <p:commandButton styleClass="btn btn-primary btn-sm" value="Başlık Ekle "
-                                     onclick="PF('dlg2').show();"/>
+                                     onclick="PF('dlg2').show();">
+
+
+                    </p:commandButton>
 
                 </div>
             </div>
@@ -60,12 +71,15 @@
                         <h4 class="h4"><h:outputText value="#{topicContentBean.title}"/></h4>
                         <hr/>
                         <p class="text-justify">
-                            <h:outputText value="#{topicContentBean.content}"/>
+                            <h:outputLabel value="#{topicContentBean.content}" escape="false" />
+
                         </p>
+
                     </div>
                 </div>
             </div>
         </ui:define>
     </ui:composition>
+
 </h:body>
 </html>

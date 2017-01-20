@@ -2,6 +2,7 @@ package com.mehmetzahit.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by GUNEY on 9.11.2016.
@@ -22,21 +23,21 @@ public class Topic implements Serializable {
     @Column(name = "DESCRIPTIN")
     private String topicDescription;
 
-    @Column(name = "MEMBER_ID")
-    private long memberId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FK_MEMBER_ID")
+    private Member member;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "topic",cascade = CascadeType.ALL)
+    private List<Content> contentList;
 
     public Topic() {
     }
 
-    public Topic(String topicName, String topicType, String topicDescription, long memberId) {
-        this.topicName = topicName;
-        this.topicType = topicType;
-        this.topicDescription = topicDescription;
-        this.memberId = memberId;
+    public Topic(long topicId) {
+        this.topicId = topicId;
     }
 
     public long getTopicId() {
-
         return topicId;
     }
 
@@ -68,22 +69,21 @@ public class Topic implements Serializable {
         this.topicDescription = topicDescription;
     }
 
-    public long getMemberId() {
-        return memberId;
+    public Member getMember() {
+        return member;
     }
 
-    public void setMemberId(long memberId) {
-        this.memberId = memberId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
-    @Override
-    public String toString() {
-        return "Topic{" +
-                "topicId=" + topicId +
-                ", topicName='" + topicName + '\'' +
-                ", topicType='" + topicType + '\'' +
-                ", topicDescription='" + topicDescription + '\'' +
-                ", memberId=" + memberId +
-                '}';
+    public List<Content> getContentList() {
+        return contentList;
     }
+
+    public void setContentList(List<Content> contentList) {
+        this.contentList = contentList;
+    }
+
+
 }

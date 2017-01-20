@@ -1,4 +1,4 @@
-package com.mehmetzahit.dao;
+package com.mehmetzahit.persistence.dao;
 
 import com.mehmetzahit.model.Topic;
 

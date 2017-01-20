@@ -1,6 +1,7 @@
-package com.mehmetzahit.dao;
+package com.mehmetzahit.persistence.jpa;
 
 import com.mehmetzahit.model.Topic;
+import com.mehmetzahit.persistence.dao.TopicDAO;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,7 @@ public class TopicDAOImpl implements TopicDAO {
     @Override
     @Transactional
     public List<Topic> listTopic(long memberId) {
-        Query query = entityManager.createQuery("FROM TOPIC t WHERE t.memberId=:topic",Topic.class);
+        Query query = entityManager.createQuery("SELECT t FROM TOPIC t WHERE t.member.memberId=:topic");
         query.setParameter("topic",memberId);
         List<Topic> topics = query.getResultList();
 

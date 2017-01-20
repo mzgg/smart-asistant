@@ -1,9 +1,8 @@
 package com.mehmetzahit.bean;
 
-import com.mehmetzahit.dao.MemberDAO;
-import com.mehmetzahit.dao.MemberDAOImpl;
-import com.mehmetzahit.dao.TopicDAO;
-import com.mehmetzahit.dao.TopicDAOImpl;
+import com.mehmetzahit.model.Member;
+import com.mehmetzahit.persistence.dao.TopicDAO;
+import com.mehmetzahit.persistence.jpa.TopicDAOImpl;
 import com.mehmetzahit.model.Topic;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +16,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,7 +39,7 @@ public class TopicCreateBean implements Serializable {
     TopicDAO topicDAO = context.getBean(TopicDAOImpl.class);
 
     public void saveTopic() {
-        topic.setMemberId(memberId);
+        topic.setMember(new Member(memberId));
         topicDAO.saveTopic(topic);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Konu Oluşturuldu."));

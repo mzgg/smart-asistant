@@ -1,8 +1,6 @@
-package com.mehmetzahit.dao;
+package com.mehmetzahit.persistence.dao;
 
 import com.mehmetzahit.model.Member;
-
-import java.util.List;
 
 /**
  * Created by GUNEY on 1.11.2016.

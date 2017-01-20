@@ -1,8 +1,8 @@
 package com.mehmetzahit.bean;
 
 import com.mehmetzahit.model.Member;
-import com.mehmetzahit.dao.MemberDAO;
-import com.mehmetzahit.dao.MemberDAOImpl;
+import com.mehmetzahit.persistence.dao.MemberDAO;
+import com.mehmetzahit.persistence.jpa.MemberDAOImpl;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,7 +14,6 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by GUNEY on 8.11.2016.
@@ -46,6 +45,8 @@ public class MemberRegistrationBean implements Serializable {
         visibility = false;
 
     }
+
+
 
 
 }

@@ -25,23 +25,59 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Ana Sayfa</a></li>
-                    <li><a href="#">Makalelerim</a></li>
+                    <li><a href="${request.contextPath}/users/index.xhtml">Ana Sayfa</a></li>
+
                 </ul>
                 <h:form styleClass="navbar-form navbar-left">
-                    <p:selectOneButton>
-                        <f:selectItem itemLabel="Tümü" itemValue="1" />
-                        <f:selectItem itemLabel="Kısıtlı" itemValue="2" />
+                    <p:selectOneButton value="#{searchBean.restriction}">
+                        <f:ajax render="a"/>
+                        <f:selectItem itemLabel="Tümü" itemValue="0"/>
+                        <f:selectItem itemLabel="Kısıtlı" itemValue="1"/>
                     </p:selectOneButton>
                     <div class="form-group">
-                        <h:inputText styleClass="form-control" a:placeholder="Anahtar Kelime veya Konu... "/>
+                        <h:panelGrid columns="3" width="353">
+                            <p:autoComplete id="acSimple" a:placeholder="Anahtar Kelime veya Konu... "
+                                            value="#{searchBean.keyword}"
+                                            completeMethod="#{searchBean.completeText}">
+
+                                <p:ajax event="itemSelect" listener="#{searchBean.searchResultList()}"/>
+
+                            </p:autoComplete>
+
+                            <h:panelGrid id="a">
+                                <h:commandButton style="height: 31px;"
+                                                 styleClass="btn btn-default"
+                                                 value="Ara"
+                                                 id="m"
+                                                 rendered="#{searchBean.restriction ==1}"
+                                                 action="result.xhtml">
+                                </h:commandButton>
+
+                                <h:commandButton style="height: 31px;"
+                                                 styleClass="btn btn-default"
+                                                 value="Ara"
+                                                 id="z"
+                                                 rendered="#{searchBean.restriction ==0}"
+                                                 action="result2.xhtml">
+
+
+                                </h:commandButton>
+                            </h:panelGrid>
+
+                            <p:rating value="#{searchBean.rating}">
+                                <p:ajax event="rate"/>
+                                <p:ajax event="cancel"/>
+                            </p:rating>
+
+                        </h:panelGrid>
+
+
                     </div>
 
-                    <h:commandButton value="Ara" styleClass="btn btn-default"/>
 
                 </h:form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a><strong>Hoş Geldiniz Mehmet Zahit Güney</strong></a></li>
+                    <li><a><strong></strong></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">Panel<span class="caret"></span></a>

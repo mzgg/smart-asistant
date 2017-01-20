@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * Created by GUNEY on 21.11.2016.
  */
-@Entity
+@Entity(name = "KEYWORD")
 public class Keyword implements Serializable {
 
     @Id
@@ -17,28 +17,23 @@ public class Keyword implements Serializable {
     @Column(name = "KEYWORD")
     private String keyword;
 
-    @Column(name = "TOPIC_ID")
-    private long topicId;
+    @OneToOne
+    @JoinColumn(name = "TOPIC_ID")
+    private Topic topic;
 
-    @Column(name = "CONTENT_ID")
-    private long contentId;
+    @OneToOne
+    @JoinColumn(name = "CONTENT_ID")
+    private Content content;
 
-    @Column(name = "MEMBER_ID")
-    private long memberId;
+    @OneToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
     public Keyword() {
     }
 
-    public Keyword(String keyword, long topicId, long contentId, long memberId) {
-
-        this.keyword = keyword;
-        this.topicId = topicId;
-        this.contentId = contentId;
-        this.memberId = memberId;
-    }
 
     public long getKeywordId() {
-
         return keywordId;
     }
 
@@ -54,28 +49,28 @@ public class Keyword implements Serializable {
         this.keyword = keyword;
     }
 
-    public long getTopicId() {
-        return topicId;
+    public Topic getTopic() {
+        return topic;
     }
 
-    public void setTopicId(long topicId) {
-        this.topicId = topicId;
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
-    public long getContentId() {
-        return contentId;
+    public Content getContent() {
+        return content;
     }
 
-    public void setContentId(long contentId) {
-        this.contentId = contentId;
+    public void setContent(Content content) {
+        this.content = content;
     }
 
-    public long getMemberId() {
-        return memberId;
+    public Member getMember() {
+        return member;
     }
 
-    public void setMemberId(long memberId) {
-        this.memberId = memberId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     @Override
@@ -83,9 +78,9 @@ public class Keyword implements Serializable {
         return "Keyword{" +
                 "keywordId=" + keywordId +
                 ", keyword='" + keyword + '\'' +
-                ", topicId=" + topicId +
-                ", contentId=" + contentId +
-                ", memberId=" + memberId +
+                ", topic=" + topic +
+                ", content=" + content +
+                ", member=" + member +
                 '}';
     }
 }

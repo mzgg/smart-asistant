@@ -12,32 +12,39 @@ import java.io.Serializable;
 public class Content implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CONTENT_ID")
     private long contentId;
 
     @Column(name = "TITLE")
     private String title;
 
-    @Column(name = "CONTENT")
+    @Column(name = "CONTENT",columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "TOPIC_ID")
-    private long topicId;
+    @Column(name = "RATING")
+    private String rating;
+
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "FK_TOPIC_ID")
+    private Topic topic;
 
 
     public Content() {
     }
 
-    public Content(String title, String content, long topicId) {
+    public Content(long contentId) {
+        this.contentId = contentId;
+    }
+
+    public Content(String title, String content) {
 
         this.title = title;
         this.content = content;
-        this.topicId = topicId;
     }
 
     public long getContentId() {
-
         return contentId;
     }
 
@@ -61,12 +68,20 @@ public class Content implements Serializable {
         this.content = content;
     }
 
-    public long getTopicId() {
-        return topicId;
+    public String getRating() {
+        return rating;
     }
 
-    public void setTopicId(long topicId) {
-        this.topicId = topicId;
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
     @Override
@@ -75,7 +90,8 @@ public class Content implements Serializable {
                 "contentId=" + contentId +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", topicId=" + topicId +
+                ", rating='" + rating + '\'' +
+                ", topic=" + topic +
                 '}';
     }
 }

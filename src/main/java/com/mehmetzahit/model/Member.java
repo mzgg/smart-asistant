@@ -2,6 +2,7 @@ package com.mehmetzahit.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by GUNEY on 8.11.2016.
@@ -32,8 +33,15 @@ public class Member implements Serializable {
     @Column(name = "ROLE")
     private int role;
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "member",cascade = CascadeType.ALL)
+    private List<Topic> topicList;
+
 
     public Member() {
+    }
+
+    public Member(long memberId) {
+        this.memberId = memberId;
     }
 
     public Member(String memberName, String memberSurname, String emailAddress, String password, int enabled, int role) {
@@ -102,6 +110,15 @@ public class Member implements Serializable {
     public void setRole(int role) {
         this.role = role;
     }
+
+    public List<Topic> getTopicList() {
+        return topicList;
+    }
+
+    public void setTopicList(List<Topic> topicList) {
+        this.topicList = topicList;
+    }
+
 
     @Override
     public String toString() {

@@ -9,7 +9,7 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </h:head>
 <h:body>
 
@@ -19,8 +19,12 @@
 
             <h3 class="h3"><span class="glyphicon-duplicate" aria-hidden="true"> Kişisel Makaleler</span></h3>
 
-            <h:form>
-                <c:forEach items="${topicCreateBean.select()}" var="item">
+            <h:form id="refresh">
+                <ui:repeat value="${topicCreateBean.select()}" var="item">
+
+
+
+
 
                     <div class="panel panel-primary" style="width: 260px; float: left; margin-right: 15px;">
                         <div class="panel-body" style="padding: 5px;">
@@ -54,11 +58,12 @@
                     </div>
 
 
-                </c:forEach>
+                </ui:repeat>
             </h:form>
 
             <p:commandButton value="Yeni Konu" styleClass="btn btn-primary btn-lg" type="button"
                              onclick="PF('dlg1').show();">
+
             </p:commandButton>
 
 
@@ -98,7 +103,7 @@
                     <p:commandButton value="Oluştur" action="#{topicCreateBean.saveTopic()}"
                                      update="display">
 
-
+                        <f:ajax render="refresh" />
                     </p:commandButton>
 
                 </p:dialog>

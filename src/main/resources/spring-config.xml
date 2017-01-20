@@ -29,6 +29,7 @@
         <property name="minPoolSize" value="${connectionPool.minsize}"/>
         <property name="maxPoolSize" value="${connectionPool.maxsize}"/>
         <property name="acquireIncrement" value="${jdbc.connectionPool.increment}"/>
+     
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
